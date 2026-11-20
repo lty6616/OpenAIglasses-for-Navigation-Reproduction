@@ -1,0 +1,346 @@
+{
+  "device": "cuda:0",
+  "video": {
+    "path": "samples/13239132-hd_1920_1080_50fps.mp4",
+    "width": 1920,
+    "height": 1080,
+    "fps": 50.0,
+    "frame_count": 5618,
+    "sample_indices": [
+      561,
+      2809,
+      5056
+    ]
+  },
+  "models": {
+    "blindpath": {
+      "weights": "model/yolo-seg.pt",
+      "classes": {
+        "0": "road_crossing",
+        "1": "blind_path"
+      },
+      "frames": [
+        {
+          "frame": 561,
+          "elapsed_ms": 593.9,
+          "detections": [
+            {
+              "class_id": 0,
+              "name": "road_crossing",
+              "confidence": 0.9549,
+              "box": [
+                1007.9,
+                686.6,
+                1916.1,
+                1072.5
+              ]
+            },
+            {
+              "class_id": 1,
+              "name": "blind_path",
+              "confidence": 0.3082,
+              "box": [
+                745.1,
+                940.3,
+                809.2,
+                1025.2
+              ]
+            }
+          ],
+          "output": "artifacts/traffic_model_verification/blindpath_000561.jpg"
+        },
+        {
+          "frame": 2809,
+          "elapsed_ms": 39.9,
+          "detections": [
+            {
+              "class_id": 0,
+              "name": "road_crossing",
+              "confidence": 0.9535,
+              "box": [
+                1006.4,
+                688.4,
+                1916.6,
+                1072.5
+              ]
+            },
+            {
+              "class_id": 1,
+              "name": "blind_path",
+              "confidence": 0.4885,
+              "box": [
+                1219.2,
+                636.7,
+                1413.3,
+                662.9
+              ]
+            },
+            {
+              "class_id": 1,
+              "name": "blind_path",
+              "confidence": 0.4589,
+              "box": [
+                746.5,
+                940.3,
+                807.2,
+                1026.4
+              ]
+            }
+          ],
+          "output": "artifacts/traffic_model_verification/blindpath_002809.jpg"
+        },
+        {
+          "frame": 5056,
+          "elapsed_ms": 39.8,
+          "detections": [
+            {
+              "class_id": 0,
+              "name": "road_crossing",
+              "confidence": 0.9561,
+              "box": [
+                1002.9,
+                701.8,
+                1918.6,
+                1071.7
+              ]
+            },
+            {
+              "class_id": 1,
+              "name": "blind_path",
+              "confidence": 0.5014,
+              "box": [
+                746.3,
+                942.0,
+                806.1,
+                1023.1
+              ]
+            }
+          ],
+          "output": "artifacts/traffic_model_verification/blindpath_005056.jpg"
+        }
+      ]
+    },
+    "trafficlight": {
+      "weights": "model/trafficlight.pt",
+      "classes": {
+        "0": "blank",
+        "1": "countdown_blank",
+        "2": "countdown_go",
+        "3": "countdown_stop",
+        "4": "crossing",
+        "5": "go",
+        "6": "stop"
+      },
+      "frames": [
+        {
+          "frame": 561,
+          "elapsed_ms": 236.9,
+          "detections": [
+            {
+              "class_id": 4,
+              "name": "crossing",
+              "confidence": 0.9017,
+              "box": [
+                989.0,
+                709.2,
+                1920.0,
+                1080.0
+              ]
+            }
+          ],
+          "output": "artifacts/traffic_model_verification/trafficlight_000561.jpg"
+        },
+        {
+          "frame": 2809,
+          "elapsed_ms": 20.1,
+          "detections": [
+            {
+              "class_id": 4,
+              "name": "crossing",
+              "confidence": 0.9127,
+              "box": [
+                989.2,
+                710.7,
+                1920.0,
+                1080.0
+              ]
+            }
+          ],
+          "output": "artifacts/traffic_model_verification/trafficlight_002809.jpg"
+        },
+        {
+          "frame": 5056,
+          "elapsed_ms": 20.2,
+          "detections": [
+            {
+              "class_id": 4,
+              "name": "crossing",
+              "confidence": 0.8683,
+              "box": [
+                988.6,
+                726.4,
+                1920.0,
+                1079.4
+              ]
+            }
+          ],
+          "output": "artifacts/traffic_model_verification/trafficlight_005056.jpg"
+        }
+      ]
+    },
+    "yoloe_traffic": {
+      "weights": "model/yoloe-11l-seg.pt",
+      "classes": [
+        "person",
+        "car",
+        "bicycle",
+        "motorcycle",
+        "bus",
+        "truck"
+      ],
+      "frames": [
+        {
+          "frame": 561,
+          "elapsed_ms": 439.7,
+          "detections": [
+            {
+              "name": "motorcycle",
+              "track_id": 1,
+              "box": [
+                1519.7,
+                542.9,
+                1823.5,
+                746.8
+              ]
+            },
+            {
+              "name": "person",
+              "track_id": 2,
+              "box": [
+                1611.9,
+                457.1,
+                1713.0,
+                682.4
+              ]
+            },
+            {
+              "name": "car",
+              "track_id": 3,
+              "box": [
+                1239.5,
+                527.7,
+                1285.8,
+                570.6
+              ]
+            },
+            {
+              "name": "bus",
+              "track_id": 4,
+              "box": [
+                1862.5,
+                455.8,
+                1920.0,
+                625.1
+              ]
+            },
+            {
+              "name": "truck",
+              "track_id": 5,
+              "box": [
+                1861.4,
+                455.1,
+                1920.0,
+                625.9
+              ]
+            },
+            {
+              "name": "motorcycle",
+              "track_id": 6,
+              "box": [
+                1387.0,
+                531.2,
+                1523.1,
+                606.9
+              ]
+            }
+          ],
+          "output": "artifacts/traffic_model_verification/yoloe_traffic_000561.jpg"
+        },
+        {
+          "frame": 2809,
+          "elapsed_ms": 32.3,
+          "detections": [
+            {
+              "name": "truck",
+              "track_id": 4,
+              "box": [
+                1867.2,
+                457.7,
+                1916.6,
+                602.6
+              ]
+            }
+          ],
+          "output": "artifacts/traffic_model_verification/yoloe_traffic_002809.jpg"
+        },
+        {
+          "frame": 5056,
+          "elapsed_ms": 28.8,
+          "detections": [
+            {
+              "name": "motorcycle",
+              "track_id": null,
+              "box": [
+                1183.8,
+                546.4,
+                1508.1,
+                740.8
+              ]
+            },
+            {
+              "name": "person",
+              "track_id": null,
+              "box": [
+                1095.7,
+                469.2,
+                1188.5,
+                757.0
+              ]
+            },
+            {
+              "name": "person",
+              "track_id": null,
+              "box": [
+                1300.1,
+                456.8,
+                1406.3,
+                736.3
+              ]
+            },
+            {
+              "name": "person",
+              "track_id": null,
+              "box": [
+                1445.8,
+                483.8,
+                1496.7,
+                572.5
+              ]
+            },
+            {
+              "name": "car",
+              "track_id": null,
+              "box": [
+                1736.3,
+                506.6,
+                1766.0,
+                526.2
+              ]
+            }
+          ],
+          "output": "artifacts/traffic_model_verification/yoloe_traffic_005056.jpg"
+        }
+      ]
+    }
+  }
+}

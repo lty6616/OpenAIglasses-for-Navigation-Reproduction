@@ -10,7 +10,7 @@
 
 <div align="center">
 
-一个面向视障人士的智能导航与辅助系统，集成了盲道导航、过马路辅助、物品识别、实时语音交互等功能。  本项目仅为交流学习使用，请勿直接给视障人群使用。本项目内仅包含代码，模型地址：https://www.modelscope.cn/models/archifancy/AIGlasses_for_navigation  。下载后存放在/model 文件夹
+一个面向视障辅助场景的学习与演示原型，包含盲道与斑马线识别、交通目标跟踪、物品查找和实时语音交互。请勿将本项目用于真实独立导盲或通行判断。团队测试使用的模型和视频随仓库通过 Git LFS 发放。
 
 [功能特性](#功能特性) • [快速开始](#快速开始) • [系统架构](#系统架构) • [使用说明](#使用说明) • [开发文档](#开发文档)
 
@@ -112,8 +112,10 @@
 ### 1. 克隆项目
 
 ```bash
+git lfs install
 git clone https://github.com/lty6616/OpenAIglasses-for-Navigation-Reproduction.git
 cd OpenAIglasses-for-Navigation-Reproduction
+git lfs pull
 ```
 
 ### 2. 安装依赖
@@ -140,7 +142,7 @@ pip install -r requirements.txt
 
 ### 3. 下载模型文件
 
-从[原项目模型页](https://www.modelscope.cn/models/archifancy/AIGlasses_for_navigation)获取所需权重，放入 `model/`。各功能对应的文件见[模型表](docs/REPRODUCTION_GUIDE.md#模型文件)。只验证视频传输不必下载权重；运行状态页交通识别需要 `yoloe-11l-seg.pt`。
+运行 `git lfs pull` 后，模型位于 `model/`，测试视频位于 `samples/`。各功能对应的文件见[模型表](docs/REPRODUCTION_GUIDE.md#3-模型文件)。只验证视频传输不必加载模型；运行状态页交通识别需要 `yoloe-11l-seg.pt` 和根目录下的 `mobileclip_blt.ts`。
 
 ### 4. 配置 API 密钥
 

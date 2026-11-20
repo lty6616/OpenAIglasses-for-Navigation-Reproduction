@@ -1,0 +1,352 @@
+{
+  "device": "cuda:0",
+  "video": {
+    "path": "samples/15779234_3840_2160_60fps.mp4",
+    "width": 3840,
+    "height": 2160,
+    "fps": 59.94005994005994,
+    "frame_count": 3961,
+    "sample_indices": [
+      396,
+      3564
+    ]
+  },
+  "models": {
+    "blindpath": {
+      "weights": "model/yolo-seg.pt",
+      "classes": {
+        "0": "road_crossing",
+        "1": "blind_path"
+      },
+      "frames": [
+        {
+          "frame": 396,
+          "elapsed_ms": 562.9,
+          "detections": [],
+          "output": "artifacts/traffic_model_verification_4k/blindpath_000396.jpg"
+        },
+        {
+          "frame": 3564,
+          "elapsed_ms": 82.8,
+          "detections": [
+            {
+              "class_id": 1,
+              "name": "blind_path",
+              "confidence": 0.4228,
+              "box": [
+                3139.4,
+                645.8,
+                3372.2,
+                819.8
+              ]
+            }
+          ],
+          "output": "artifacts/traffic_model_verification_4k/blindpath_003564.jpg"
+        }
+      ]
+    },
+    "trafficlight": {
+      "weights": "model/trafficlight.pt",
+      "classes": {
+        "0": "blank",
+        "1": "countdown_blank",
+        "2": "countdown_go",
+        "3": "countdown_stop",
+        "4": "crossing",
+        "5": "go",
+        "6": "stop"
+      },
+      "frames": [
+        {
+          "frame": 396,
+          "elapsed_ms": 235.6,
+          "detections": [],
+          "output": "artifacts/traffic_model_verification_4k/trafficlight_000396.jpg"
+        },
+        {
+          "frame": 3564,
+          "elapsed_ms": 19.7,
+          "detections": [],
+          "output": "artifacts/traffic_model_verification_4k/trafficlight_003564.jpg"
+        }
+      ]
+    },
+    "yoloe_traffic": {
+      "weights": "model/yoloe-11l-seg.pt",
+      "classes": [
+        "person",
+        "car",
+        "bicycle",
+        "motorcycle",
+        "bus",
+        "truck"
+      ],
+      "frames": [
+        {
+          "frame": 396,
+          "elapsed_ms": 515.7,
+          "detections": [
+            {
+              "name": "car",
+              "track_id": 1,
+              "box": [
+                2611.9,
+                1785.5,
+                2762.1,
+                1915.0
+              ]
+            },
+            {
+              "name": "truck",
+              "track_id": 2,
+              "box": [
+                3545.7,
+                154.4,
+                3758.6,
+                279.8
+              ]
+            },
+            {
+              "name": "bus",
+              "track_id": 3,
+              "box": [
+                1579.3,
+                561.4,
+                1744.9,
+                720.6
+              ]
+            },
+            {
+              "name": "car",
+              "track_id": 4,
+              "box": [
+                3194.2,
+                791.5,
+                3442.0,
+                886.1
+              ]
+            },
+            {
+              "name": "car",
+              "track_id": 5,
+              "box": [
+                995.7,
+                642.3,
+                1115.0,
+                742.2
+              ]
+            },
+            {
+              "name": "car",
+              "track_id": 6,
+              "box": [
+                1535.6,
+                105.4,
+                1624.0,
+                182.4
+              ]
+            },
+            {
+              "name": "car",
+              "track_id": 7,
+              "box": [
+                1204.8,
+                637.8,
+                1302.2,
+                734.6
+              ]
+            },
+            {
+              "name": "car",
+              "track_id": 8,
+              "box": [
+                1410.1,
+                41.4,
+                1497.1,
+                113.3
+              ]
+            },
+            {
+              "name": "car",
+              "track_id": 9,
+              "box": [
+                1435.7,
+                265.7,
+                1537.0,
+                361.8
+              ]
+            },
+            {
+              "name": "car",
+              "track_id": 10,
+              "box": [
+                2365.4,
+                2.9,
+                2457.5,
+                69.8
+              ]
+            },
+            {
+              "name": "car",
+              "track_id": 11,
+              "box": [
+                1415.2,
+                630.6,
+                1524.9,
+                730.2
+              ]
+            },
+            {
+              "name": "car",
+              "track_id": 12,
+              "box": [
+                2305.7,
+                1569.2,
+                2448.1,
+                1724.1
+              ]
+            },
+            {
+              "name": "car",
+              "track_id": 13,
+              "box": [
+                1470.6,
+                199.7,
+                1569.2,
+                282.6
+              ]
+            },
+            {
+              "name": "car",
+              "track_id": 14,
+              "box": [
+                1492.7,
+                405.0,
+                1588.4,
+                504.4
+              ]
+            },
+            {
+              "name": "car",
+              "track_id": 15,
+              "box": [
+                2627.4,
+                1142.0,
+                2749.5,
+                1242.9
+              ]
+            },
+            {
+              "name": "car",
+              "track_id": 16,
+              "box": [
+                2631.1,
+                1083.5,
+                2739.5,
+                1147.9
+              ]
+            },
+            {
+              "name": "person",
+              "track_id": 17,
+              "box": [
+                3213.2,
+                736.3,
+                3250.9,
+                814.3
+              ]
+            },
+            {
+              "name": "person",
+              "track_id": 18,
+              "box": [
+                2971.6,
+                399.5,
+                3003.1,
+                507.3
+              ]
+            },
+            {
+              "name": "car",
+              "track_id": 19,
+              "box": [
+                3655.4,
+                237.1,
+                3839.8,
+                333.2
+              ]
+            }
+          ],
+          "output": "artifacts/traffic_model_verification_4k/yoloe_traffic_000396.jpg"
+        },
+        {
+          "frame": 3564,
+          "elapsed_ms": 58.3,
+          "detections": [
+            {
+              "name": "car",
+              "track_id": 1,
+              "box": [
+                2633.7,
+                1820.1,
+                2800.8,
+                1964.3
+              ]
+            },
+            {
+              "name": "truck",
+              "track_id": 2,
+              "box": [
+                3549.8,
+                149.1,
+                3760.4,
+                273.0
+              ]
+            },
+            {
+              "name": "car",
+              "track_id": 8,
+              "box": [
+                1418.4,
+                23.6,
+                1496.8,
+                88.3
+              ]
+            },
+            {
+              "name": "car",
+              "track_id": 11,
+              "box": [
+                1417.5,
+                627.5,
+                1522.7,
+                722.9
+              ]
+            },
+            {
+              "name": "car",
+              "track_id": 12,
+              "box": [
+                2321.7,
+                1636.3,
+                2444.5,
+                1769.1
+              ]
+            },
+            {
+              "name": "car",
+              "track_id": 13,
+              "box": [
+                1451.4,
+                221.8,
+                1554.2,
+                308.3
+              ]
+            }
+          ],
+          "output": "artifacts/traffic_model_verification_4k/yoloe_traffic_003564.jpg"
+        }
+      ]
+    }
+  }
+}

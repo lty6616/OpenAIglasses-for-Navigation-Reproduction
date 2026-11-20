@@ -1,14 +1,16 @@
 # 队友上手手册
 
-推荐顺序：**本地视频 → 模型识别 → ESP32 相机 → IMU / 语音**。仓库不包含测试视频、YOLO 权重或个人配置。它是学习和受控演示原型，不用于真实独立导盲或判断能否过马路。
+推荐顺序：**本地视频 → 模型识别 → ESP32 相机 → IMU / 语音**。仓库包含模型、两段测试视频和离线验证结果；不包含个人配置。它是学习和受控演示原型，不用于真实独立导盲或判断能否过马路。
 
 ## 1. Windows / VS Code 环境
 
-接受 GitHub 仓库邀请后，在 PowerShell 执行：
+接受 GitHub 仓库邀请并确认 `git lfs version` 可用后，在 PowerShell 执行：
 
 ```powershell
+git lfs install
 git clone https://github.com/lty6616/OpenAIglasses-for-Navigation-Reproduction.git
 cd OpenAIglasses-for-Navigation-Reproduction
+git lfs pull
 conda create -n aiglass python=3.11 -y
 conda activate aiglass
 python -m pip install -r requirements.txt
@@ -45,10 +47,10 @@ python app_main.py
 python tools/simulate_camera_client.py --fps 5 --seconds 30
 ```
 
-有画面且 FPS 接近 5 后，将有权使用的测试视频放在 `samples/traffic.mp4`，或者把参数换成手头文件的路径：
+有画面且 FPS 接近 5 后，运行仓库内的测试视频：
 
 ```powershell
-python tools/simulate_camera_client.py --video "samples/traffic.mp4" --fps 5 --seconds 120 --loop
+python tools/simulate_camera_client.py --video "samples/13239132-hd_1920_1080_50fps.mp4" --fps 5 --seconds 120 --loop
 ```
 
 此命令沿用 ESP32 的 WebSocket JPEG 协议，不需要挂接硬件，也不会把视频上传到云端。联调时仅运行一个输入源（ESP32 或模拟器）。服务会在本地 `recordings/` 写入录制数据。
@@ -57,7 +59,7 @@ python tools/simulate_camera_client.py --video "samples/traffic.mp4" --fps 5 --s
 
 ## 3. 模型文件
 
-从[原项目 ModelScope 模型页](https://www.modelscope.cn/models/archifancy/AIGlasses_for_navigation)获取所需权重，放入仓库根目录的 `model/`，或用 `.env` 指定路径。找不到权重时先向队友确认版本，不要用同名的无关模型替代。
+下表权重已随 Git LFS 提供。若文件只有几百字节或内容是 Git LFS 指针，在根目录重新运行 `git lfs pull`。上游权重来源：[原项目 ModelScope 模型页](https://www.modelscope.cn/models/archifancy/AIGlasses_for_navigation)。
 
 | 文件 | 配置项 | 用途 |
 | --- | --- | --- |
@@ -67,7 +69,7 @@ python tools/simulate_camera_client.py --video "samples/traffic.mp4" --fps 5 --s
 | `shoppingbest5.pt` | `SHOPPING_MODEL` | 物品查找后备模型 |
 | `hand_landmarker.task` | `HAND_TASK_PATH` | 手部关键点，仓库已附 |
 
-YOLOE 还使用 `mobileclip_blt.ts` 编码类别提示词。Ultralytics 通常会在首次使用时下载；若下载受网络限制，从 [Ultralytics 官方资产发布页](https://github.com/ultralytics/assets/releases/tag/v8.3.0)下载该文件，放到**仓库根目录**（与 `app_main.py` 同级），再从根目录启动服务。
+YOLOE 还使用 `mobileclip_blt.ts` 编码类别提示词。此文件也随 Git LFS 提供，位于**仓库根目录**（与 `app_main.py` 同级）。上游来源：[Ultralytics 官方资产发布页](https://github.com/ultralytics/assets/releases/tag/v8.3.0)。离线标注结果见 [1080p 样例](../artifacts/traffic_model_verification/)和 [4K 样例](../artifacts/traffic_model_verification_4k/)。
 
 本地权重放好后，运行 `python tools/check_models.py --load` 检查上表文件；只装了部分权重时，其余项会报告缺失。重启服务，在 `/status` 点击「启动交通识别」。有输入时应看到行人、车辆、自行车等类别的框和计数；是否检出取决于视频内容。可切回原始视频，对比帧率与识别结果。
 
@@ -105,4 +107,4 @@ YOLOE 还使用 `mobileclip_blt.ts` 编码类别提示词。Ultralytics 通常�
 - **IMU**：访问 `/imu`，另一终端运行 `python tools/simulate_imu_udp.py --hz 50 --seconds 30`，观察姿态变化。
 - **语音与问答**：先按 [API 单项测试](API_SMOKE_TESTS.md)验证 WAV 和单张图片。FunASR 的本地 Paraformer 测试与主服务的 DashScope 实时 ASR 不同，配置本地模型不会自动切换主服务。
 - **排障顺序**：健康检查 → 原始画面 → 交通识别 → ESP32 链路。端口被占时先停掉自己启动的旧服务。视频连上但持续 0 FPS 时，检查输入进程、最后帧龄和串口日志。
-- **团队协作**：从 `main` 创建功能分支，完成一条链路的验证后提 PR；记录输入、操作、预期和实际结果。不要提交 `.env`、两份本地固件配置、模型权重、录像或私人素材。
+- **团队协作**：从 `main` 创建功能分支，完成一条链路的验证后提 PR；记录输入、操作、预期和实际结果。不要提交 `.env`、两份本地固件配置、自动录制的音视频或私人素材。更新权重或测试视频前先与团队确认，Git LFS 会为每个新版本上传完整文件。
