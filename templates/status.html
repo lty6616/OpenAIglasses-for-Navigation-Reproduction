@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>硬件状态监控台 · 智能导盲系统</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/static/status.css?v=20260918-traffic">
+</head>
+<body>
+<div class="shell">
+  <div class="banner hidden" id="fileBanner">
+    当前通过 file:// 打开，无法连接服务器。请访问 <b>http://&lt;服务器IP&gt;:8081/status</b>
+  </div>
+
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">AIGLASS · STATUS CONSOLE</p>
+      <h1>硬件状态监控台</h1>
+      <h3>实时接收 ESP32 视频流与数据链路状态</h3>
+    </div>
+    <div class="status-strip">
+      <span class="pill muted" id="serverPill">服务器：检测中…</span>
+      <span class="pill muted" id="uptimePill">运行 --</span>
+      <span class="pill muted" id="clockPill">--:--:--</span>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <div class="main-column">
+      <!-- 左：实时视频 -->
+      <section class="panel video-panel">
+        <div class="panel-head video-head">
+          <h2>实时视频 <span class="badge off" id="videoWsBadge">连接中…</span></h2>
+          <div class="video-controls">
+            <div class="segmented" role="group" aria-label="视频画面来源">
+              <button class="selected" id="btnRawStream" type="button">原始画面</button>
+              <button id="btnTrafficStream" type="button">交通 AI</button>
+            </div>
+            <span class="endpoint" id="videoEndpoint">/ws/viewer</span>
+          </div>
+        </div>
+        <div class="video-wrap">
+          <canvas id="videoCanvas" width="640" height="480"></canvas>
+          <div class="stream-alert hidden" id="streamAlert">视频流已中断，正在等待新帧</div>
+          <div class="video-placeholder" id="videoPlaceholder">
+            <p>等待视频流…</p>
+            <small>连接 ESP32，或使用视频模拟器向 /ws/camera 推送画面</small>
+          </div>
+        </div>
+        <div class="video-stats">
+          <span>FPS <b id="statFps">--</b></span>
+          <span>分辨率 <b id="statRes">--</b></span>
+          <span>帧大小 <b id="statSize">--</b></span>
+          <span>累计帧 <b id="statTotal">0</b></span>
+          <span>最后帧龄 <b id="statAge">--</b></span>
+        </div>
+      </section>
+
+      <section class="panel traffic-panel">
+        <div class="panel-head">
+          <h2>交通场景识别 <span class="badge off" id="trafficBadge">未启动</span></h2>
+          <button class="primary-action" id="btnTrafficToggle" type="button">启动交通识别</button>
+        </div>
+        <div class="traffic-body">
+          <div class="traffic-metrics">
+            <div><span>模型状态</span><b id="trafficModelState">未加载</b></div>
+            <div><span>推理耗时</span><b id="trafficLatency">--</b></div>
+            <div><span>处理速度</span><b id="trafficFps">--</b></div>
+            <div><span>处理帧数</span><b id="trafficFrames">0</b></div>
+          </div>
+          <div class="traffic-results">
+            <div>
+              <p class="section-label">场景计数</p>
+              <div class="count-strip" id="trafficCounts"><span class="empty-text">暂无目标</span></div>
+            </div>
+            <div>
+              <p class="section-label">ByteTrack 目标</p>
+              <div class="track-list" id="trafficTracks"><span class="empty-text">暂无追踪结果</span></div>
+            </div>
+          </div>
+          <p class="traffic-error hidden" id="trafficError"></p>
+        </div>
+      </section>
+    </div>
+
+    <!-- 右：链路状态 + 语音文字流 -->
+    <aside class="side">
+      <section class="panel">
+        <div class="panel-head">
+          <h2>数据链路</h2>
+          <span class="endpoint">/api/status · 3s</span>
+        </div>
+        <div class="link-cards">
+          <article class="link-card">
+            <div class="link-head">
+              <span class="dot" id="dotCamera"></span>
+              <h3>摄像头 ESP32</h3>
+              <span class="state" id="stateCamera">检测中…</span>
+            </div>
+            <div class="link-rows">
+              <div class="row"><span>设备连接</span><b id="camEsp">--</b></div>
+              <div class="row"><span>最后帧龄</span><b id="camAge">--</b></div>
+            </div>
+          </article>
+
+          <article class="link-card">
+            <div class="link-head">
+              <span class="dot" id="dotAudio"></span>
+              <h3>音频 ESP32</h3>
+              <span class="state" id="stateAudio">检测中…</span>
+            </div>
+            <div class="link-rows">
+              <div class="row"><span>设备连接</span><b id="audEsp">--</b></div>
+              <div class="row"><span>上行通道</span><b>/ws_audio</b></div>
+            </div>
+          </article>
+
+          <article class="link-card">
+            <div class="link-head">
+              <span class="dot" id="dotImu"></span>
+              <h3>IMU 姿态</h3>
+              <span class="state" id="stateImu">检测中…</span>
+            </div>
+            <div class="link-rows">
+              <div class="row"><span>UDP 收包</span><b id="imuAge">--</b></div>
+              <div class="row"><span>浏览器订阅</span><b id="imuClients">--</b></div>
+            </div>
+          </article>
+        </div>
+        <div class="link-footer">
+          <span id="subCounts">订阅：--</span>
+          <span id="navState">导航：--</span>
+        </div>
+      </section>
+
+      <section class="panel asr-panel">
+        <div class="panel-head">
+          <h2>语音识别文字流 <span class="badge off" id="asrBadge">连接中…</span></h2>
+          <span class="endpoint">/ws_ui</span>
+        </div>
+        <div class="asr-partial" id="asrPartial">（等待音频…）</div>
+        <div class="asr-list" id="asrList"></div>
+        <div class="asr-actions">
+          <button id="btnClearAsr" type="button" title="清空本页语音记录">清空记录</button>
+        </div>
+      </section>
+    </aside>
+  </main>
+</div>
+<script src="/static/status.js?v=20260918-traffic"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+item,spec,unit_price_cny,quantity,total_cny,status,owner,notes
+ESP32-cam,Seeed Studio XIAO ESP32S3 Sense,101,3,303,planned,A,core endpoint board
+Camera,OV5640,119,1,119,planned,A,optional image-quality upgrade
+IMU,ICM-42688,129.17,1,129.17,planned,A,includes PCB sampling per original purchase sheet
+Amplifier,MAX98357,6.86,1,6.86,planned,A,I2S speaker amplifier
+Speaker,8 ohm 2 W chamber speaker,9,1,9,planned,A,small enclosure speaker
+Rechargeable battery,TBD,10,1,10,planned,A,confirm discharge current and runtime
+Charge/protection module,TP4056 Type-C,4.68,1,4.68,planned,A,charging and protection
+DashScope API/token,,0,1,0,needed,C,fill real billing and quota after account setup
+Bone conduction actuator or small speaker,TBD,0,1,0,optional,A,choose after audio proof of concept
+I2S microphone module,INMP441,0,1,0,optional,A,firmware currently uses PDM pins on XIAO Sense

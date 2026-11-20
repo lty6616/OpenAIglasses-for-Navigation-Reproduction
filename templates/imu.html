@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ICM42688 虚拟上位机</title>
+  <link rel="stylesheet" href="../static/imu_dashboard.css" />
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">ICM42688 Virtual Host</p>
+        <h1>IMU 姿态上位机</h1>
+      </div>
+      <div class="status-strip">
+        <span id="wsState" class="pill warn">WS connecting</span>
+        <span id="dataState" class="pill">waiting data</span>
+        <span class="pill muted">UDP 12345</span>
+      </div>
+    </header>
+
+    <section class="workspace">
+      <section class="attitude-panel">
+        <div class="scene" aria-label="姿态可视化">
+          <div class="grid-floor"></div>
+          <div id="bodyModel" class="body-model">
+            <span class="face face-front">FRONT</span>
+            <span class="face face-back"></span>
+            <span class="face face-left"></span>
+            <span class="face face-right"></span>
+            <span class="face face-top">ICM42688</span>
+            <span class="face face-bottom"></span>
+          </div>
+          <div class="axis axis-x">X</div>
+          <div class="axis axis-y">Y</div>
+          <div class="axis axis-z">Z</div>
+        </div>
+        <div class="angle-row">
+          <div><span>Roll</span><strong id="rollValue">0.0°</strong></div>
+          <div><span>Pitch</span><strong id="pitchValue">0.0°</strong></div>
+          <div><span>Yaw</span><strong id="yawValue">0.0°</strong></div>
+        </div>
+      </section>
+
+      <aside class="telemetry">
+        <div class="panel-head">
+          <h2>实时状态</h2>
+          <span id="motionState" class="motion">still</span>
+        </div>
+        <div class="metrics">
+          <div><span>加速度模长</span><strong id="accelNorm">0.00</strong><em>m/s²</em></div>
+          <div><span>角速度模长</span><strong id="gyroNorm">0.00</strong><em>°/s</em></div>
+          <div><span>采样间隔</span><strong id="dtValue">0</strong><em>ms</em></div>
+          <div><span>帧率估计</span><strong id="rateValue">0</strong><em>Hz</em></div>
+        </div>
+
+        <div class="vectors">
+          <div>
+            <h3>Accel</h3>
+            <p><span>X</span><b id="axValue">0.00</b></p>
+            <p><span>Y</span><b id="ayValue">0.00</b></p>
+            <p><span>Z</span><b id="azValue">0.00</b></p>
+          </div>
+          <div>
+            <h3>Gyro</h3>
+            <p><span>X</span><b id="gxValue">0.00</b></p>
+            <p><span>Y</span><b id="gyValue">0.00</b></p>
+            <p><span>Z</span><b id="gzValue">0.00</b></p>
+          </div>
+        </div>
+
+        <div class="controls" aria-label="控制区">
+          <button id="btnMock" type="button">模拟模式</button>
+          <button id="btnZero" type="button">校准零点</button>
+          <button id="btnPause" type="button">暂停</button>
+          <button id="btnClear" type="button">清空曲线</button>
+          <button id="btnCsv" type="button">导出 CSV</button>
+        </div>
+      </aside>
+    </section>
+
+    <section class="charts">
+      <article>
+        <div class="chart-head">
+          <h2>姿态角历史</h2>
+          <span>Roll / Pitch / Yaw</span>
+        </div>
+        <canvas id="angleChart" width="900" height="220"></canvas>
+      </article>
+      <article>
+        <div class="chart-head">
+          <h2>传感器历史</h2>
+          <span>Accel / Gyro norm</span>
+        </div>
+        <canvas id="motionChart" width="900" height="220"></canvas>
+      </article>
+    </section>
+
+    <section class="raw-panel">
+      <div class="chart-head">
+        <h2>最近一帧 JSON</h2>
+        <span id="lastTime">no packet</span>
+      </div>
+      <pre id="rawJson">{}</pre>
+    </section>
+  </main>
+
+  <script src="../static/imu_dashboard.js"></script>
+</body>
+</html>

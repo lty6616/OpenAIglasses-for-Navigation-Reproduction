@@ -1,0 +1,26 @@
+.env
+venv/
+.venv/
+.pio/
+__pycache__/
+*.pyc
+recordings/
+outputs/
+compile/config.h
+firmware_camera_status/include/aiglass_local_config.h
+.env.*
+!.env.example
+
+# Large model files are downloaded from ModelScope and should not be committed.
+model/*.pt
+model/*.onnx
+model/*.engine
+mobileclip_blt.ts
+artifacts/
+
+# Keep the bundled MediaPipe task file if it is intentionally distributed.
+!model/hand_landmarker.task
+
+# Local test videos and personal VS Code paths
+samples/*.mp4
+.vscode/settings.json
