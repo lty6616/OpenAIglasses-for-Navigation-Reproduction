@@ -3,6 +3,7 @@
 本仓库是三人团队基于 [AI-FanGe/OpenAIglasses_for_Navigation](https://github.com/AI-FanGe/OpenAIglasses_for_Navigation) 的复现与二次开发，保留原项目 [MIT 许可](LICENSE)。
 
 - **第一次运行**：[Windows / VS Code 使用手册](docs/REPRODUCTION_GUIDE.md)，包含无硬件本地视频演示和 XIAO ESP32S3 接入。
+- **交给 AI 接手**：[AI 快速启动指南](AGENTS.md)，包含启动顺序、实测通过标准和排障入口。
 - **给队友接后端**：[独立运行与局域网共用](docs/REPRODUCTION_GUIDE.md#5-给队友使用后端)，包括访问地址、烧录配置和排障。
 - **参与开发**：[系统架构与接口](docs/ARCHITECTURE.md) · [团队分工](docs/TEAM_ROLES.md) · [验收矩阵](docs/TEST_MATRIX.md)
 - **分模块排查**：[状态页](docs/STATUS_MONITOR.md) · [语音和多模态](docs/API_SMOKE_TESTS.md) · [IMU](docs/ICM42688_UPPER_COMPUTER.md)
